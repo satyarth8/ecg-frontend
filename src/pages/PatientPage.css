@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0d0d1a;
+  --surface: #13132b;
+  --surface2: #1a1a35;
+  --surface3: #20203e;
+  --border: rgba(255,255,255,0.08);
+  --accent: #6c5ce7;
+  --accent-light: #a29bfe;
+  --text: #e0e0f0;
+  --text-muted: #8888aa;
+  --danger: #ff5252;
+  --success: #00d2a0;
+  --warning: #ffa500;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* ─── Layout ─────────────────────────── */
+.patient-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Topbar ──────────────────────────── */
+.patient-topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.topbar-brand .brand-icon { font-size: 1.3rem; }
+.topbar-brand .brand-name { font-size: 1rem; font-weight: 700; }
+
+.topbar-right { display: flex; align-items: center; gap: 1rem; }
+
+.patient-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--surface2);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.p-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+}
+.p-name { font-size: 0.85rem; font-weight: 600; }
+.p-role { font-size: 0.72rem; color: var(--text-muted); }
+
+.logout-btn-top {
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.logout-btn-top:hover {
+  background: rgba(255,82,82,0.1);
+  border-color: rgba(255,82,82,0.35);
+  color: var(--danger);
+}
+
+/* ─── Hero banner ─────────────────────── */
+.patient-hero {
+  background: linear-gradient(135deg, #1a0550 0%, #0d0d1a 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 700;
+  border: 3px solid rgba(108,92,231,0.4);
+  flex-shrink: 0;
+}
+
+.hero-text h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; }
+.hero-meta { font-size: 0.82rem; color: var(--text-muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+/* ─── Body ────────────────────────────── */
+.patient-body {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ─── Stat Cards ──────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+}
+
+.stat-label {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-sub { font-size: 0.73rem; color: var(--text-muted); }
+
+.card-accent-purple { border-top: 3px solid var(--accent-light); }
+.card-accent-teal   { border-top: 3px solid #00b8d4; }
+.card-accent-green  { border-top: 3px solid var(--success); }
+.card-accent-red    { border-top: 3px solid var(--danger); }
+.card-accent-orange { border-top: 3px solid var(--warning); }
+
+/* ─── Prediction Card ─────────────────── */
+.prediction-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.prediction-icon { font-size: 2.5rem; }
+
+.prediction-info { flex: 1; }
+.prediction-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+
+.prediction-badge-normal {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 1rem; border-radius: 24px;
+  background: rgba(0,210,160,0.15); border: 1px solid rgba(0,210,160,0.4);
+  color: var(--success); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem;
+}
+
+.prediction-badge-abnormal {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 1rem; border-radius: 24px;
+  background: rgba(255,82,82,0.15); border: 1px solid rgba(255,82,82,0.4);
+  color: var(--danger); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
+  50% { box-shadow: 0 0 0 5px rgba(255,82,82,0.15); }
+}
+
+.prediction-timestamp { font-size: 0.8rem; color: var(--text-muted); }
+
+.sqi-section { min-width: 160px; }
+.sqi-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+.sqi-value { font-size: 1.3rem; font-weight: 700; color: #00b8d4; margin-bottom: 0.35rem; }
+.sqi-bar { height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+.sqi-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--danger), var(--warning), var(--success)); transition: width 0.5s ease; }
+
+/* ─── Chart Panel ─────────────────────── */
+.chart-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.panel-title-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;
+}
+
+.panel-title { font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.45rem; }
+.panel-sub   { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ─── History Table ───────────────────── */
+.history-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.data-table th {
+  text-align: left; padding: 0.55rem 0.75rem;
+  color: var(--text-muted); font-weight: 500; font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.data-table tbody tr:hover { background: rgba(255,255,255,0.025); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.badge-n { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(0,210,160,0.15); color: var(--success); }
+.badge-a { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(255,82,82,0.15); color: var(--danger); }
+
+/* ─── Spinner / Empty ─────────────────── */
+.spinner {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-top-color: var(--accent-light);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 3rem 1rem; color: var(--text-muted); text-align: center; gap: 0.75rem;
+}
+.empty-icon { font-size: 2.5rem; }
+.empty-text { font-size: 0.875rem; }
