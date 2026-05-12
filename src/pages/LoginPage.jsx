@@ -27,9 +27,17 @@ const LoginPage = () => {
 
     try {
       const { data } = await api.post('/api/auth/login', { email, password });
-      // Expected response: { token: "...", user: { id, email, role, username } }
-      login(data.token, data.user);
-      const redirect = ROLE_ROUTES[data.user.role] || '/login';
+      // Backend returns: { token: "...", role: "...", user_id: "..." }
+      // Construct user object from flat response fields
+      const userData = {
+        id: data.user_id,
+        user_id: data.user_id,
+        email: email,
+        role: data.role,
+        username: data.username || email.split('@')[0],
+      };
+      login(data.token, userData);
+      const redirect = ROLE_ROUTES[data.role] || '/login';
       navigate(redirect, { replace: true });
     } catch (err) {
       const msg = err.response?.data?.error || err.response?.data?.message || 'Login failed. Please check your credentials.';
