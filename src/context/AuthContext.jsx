@@ -5,8 +5,15 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('ecg_token'));
   const [user, setUser] = useState(() => {
-    const u = localStorage.getItem('ecg_user');
-    return u ? JSON.parse(u) : null;
+    try {
+      const u = localStorage.getItem('ecg_user');
+      return u ? JSON.parse(u) : null;
+    } catch {
+      // Corrupt data in localStorage (e.g. HTML string from a failed request)
+      localStorage.removeItem('ecg_user');
+      localStorage.removeItem('ecg_token');
+      return null;
+    }
   });
 
   const login = (jwtToken, userData) => {
