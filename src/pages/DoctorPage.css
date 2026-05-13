@@ -356,3 +356,83 @@ body {
   background: var(--success);
   animation: pulse-dot 2s ease-in-out infinite;
 }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE  ≤ 640 px
+═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Stack sidebar above main content, convert to a top nav strip */
+  .doctor-layout { flex-direction: column; height: auto; overflow: visible; }
+
+  .patient-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    gap: 0.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header { padding: 0; border-bottom: none; }
+  .sidebar-brand { margin-bottom: 0; }
+  .sidebar-brand .brand-name { font-size: 0.88rem; }
+  .sidebar-user-chip { display: none; }   /* hidden — too wide on mobile */
+  .sidebar-section-title { display: none; }
+
+  .patient-list {
+    flex: unset;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    padding: 0.4rem 0;
+  }
+
+  .patient-item {
+    flex-shrink: 0;
+    min-width: 130px;
+    padding: 0.5rem 0.65rem;
+    margin-bottom: 0;
+  }
+
+  .patient-meta .patient-room { display: none; }
+
+  .sidebar-logout-btn {
+    width: auto;
+    margin: 0;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* Main content scrolls normally */
+  .doctor-main { overflow: visible; }
+
+  .doctor-header {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .header-patient-avatar { width: 32px; height: 32px; font-size: 0.75rem; }
+  .header-patient-name { font-size: 0.95rem; }
+  .header-right { gap: 0.5rem; }
+  .poll-indicator { display: none; }   /* reclaim space on small screens */
+
+  .alert-banner { padding: 0.65rem 0.85rem; flex-wrap: wrap; gap: 0.5rem; }
+  .alert-banner-title { font-size: 0.82rem; }
+
+  .doctor-body { padding: 0.9rem; gap: 0.9rem; }
+
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+  .stat-card { padding: 0.8rem 0.9rem; }
+  .stat-value { font-size: 1.3rem; }
+
+  .chart-panel, .alerts-panel { padding: 0.9rem; border-radius: 10px; }
+
+  .alert-row { flex-wrap: wrap; gap: 0.5rem; }
+  .ack-btn { width: 100%; text-align: center; }
+}

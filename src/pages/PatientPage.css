@@ -264,3 +264,48 @@ body {
 }
 .empty-icon { font-size: 2.5rem; }
 .empty-text { font-size: 0.875rem; }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE  ≤ 640 px
+═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .patient-topbar {
+    padding: 0.65rem 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .topbar-brand .brand-name { font-size: 0.88rem; }
+  .topbar-right { gap: 0.5rem; }
+  .patient-chip .p-role { display: none; }
+
+  .patient-hero {
+    padding: 1.25rem 1rem 1rem;
+    gap: 1rem;
+  }
+
+  .hero-avatar { width: 48px; height: 48px; font-size: 1.2rem; }
+  .hero-text h1 { font-size: 1.1rem; }
+  .hero-meta { gap: 0.5rem; font-size: 0.78rem; }
+
+  .patient-body { padding: 0.9rem; gap: 0.9rem; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+  .stat-card { padding: 0.85rem 0.9rem; border-radius: 10px; }
+  .stat-value { font-size: 1.5rem; }
+
+  .prediction-card {
+    padding: 1rem;
+    gap: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .prediction-icon { font-size: 2rem; }
+
+  .chart-panel, .history-panel { padding: 0.9rem; border-radius: 10px; }
+
+  /* Horizontally scrollable table on narrow screens */
+  .history-panel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .data-table { font-size: 0.78rem; min-width: 480px; }
+  .data-table th, .data-table td { padding: 0.45rem 0.5rem; }
+}

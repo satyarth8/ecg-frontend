@@ -129,3 +129,8 @@
   color: #6b6b88;
   font-size: 0.8rem;
 }
+
+@media (max-width: 480px) {
+  .login-card { padding: 2rem 1.25rem; border-radius: 14px; }
+  .login-title { font-size: 1.35rem; }
+}
