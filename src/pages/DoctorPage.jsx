@@ -15,15 +15,22 @@ const POLL_INTERVAL_MS = 30_000; // poll alerts every 30s
 const initials = (name = '') =>
   name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || '??';
 
+// Append 'Z' if the ISO string lacks a timezone suffix so the browser
+// always interprets it as UTC rather than ambiguous local time.
+const toUtcDate = (iso) => {
+  if (!iso) return null;
+  return new Date(/[Z+]/.test(iso) ? iso : iso + 'Z');
+};
+
 const fmtTime = (iso) => {
-  if (!iso) return '—';
-  const d = new Date(iso);
+  const d = toUtcDate(iso);
+  if (!d) return '—';
   return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
 const fmtDateTime = (iso) => {
-  if (!iso) return '—';
-  const d = new Date(iso);
+  const d = toUtcDate(iso);
+  if (!d) return '—';
   return d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 };
 
@@ -103,13 +110,19 @@ const DoctorPage = () => {
           // 288 × 5s windows ≈ 24 hours
         );
         const summaries = data.summaries || [];
-        // Shape for Recharts
-        const shaped = summaries.map(s => ({
-          time: fmtTime(s.start_time),
-          bpm: Math.round(s.heart_rate ?? 0),
-          sqi: parseFloat((s.sqi ?? 0).toFixed(2)),
-          prediction: s.prediction || 'Normal',
-        }));
+        // Shape for Recharts — keep epoch for ordering, formatted label for display
+        const shaped = summaries.map(s => {
+          const d = toUtcDate(s.start_time);
+          return {
+            time: d
+              ? d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+              : '—',
+            epoch: d ? d.getTime() : 0,
+            bpm: Math.round(s.heart_rate ?? 0),
+            sqi: parseFloat((s.sqi ?? 0).toFixed(2)),
+            prediction: s.prediction || 'Normal',
+          };
+        }).sort((a, b) => a.epoch - b.epoch);
         setHistory(shaped);
       } catch {
         setHistory([]);
@@ -397,7 +410,8 @@ const DoctorPage = () => {
                       tick={{ fill: '#8888aa', fontSize: 11 }}
                       tickLine={false}
                       axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
-                      interval={Math.max(1, Math.floor(history.length / 8))}
+                      interval={Math.max(0, Math.floor(history.length / 8) - 1)}
+                      minTickGap={60}
                     />
                     <YAxis
                       tick={{ fill: '#8888aa', fontSize: 11 }}
