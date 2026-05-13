@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axiosInstance';
+import DemoControlPanel from '../components/DemoControlPanel';
 import './AdminPage.css';
 
 /* ─── Panel constants ─────────────────────────────────── */
@@ -9,6 +10,7 @@ const PANELS = [
   { id: 'users',   label: 'Users',    icon: '👥' },
   { id: 'devices', label: 'Devices',  icon: '🖥️' },
   { id: 'patients',label: 'Patients', icon: '🏥' },
+  { id: 'demo',    label: 'Demo',     icon: '🎬' },
 ];
 
 const ROLES = ['admin', 'doctor', 'nurse', 'patient'];
@@ -534,6 +536,7 @@ const AdminPage = () => {
           {activePanel === 'users'   && <UsersPanel />}
           {activePanel === 'devices' && <DevicesPanel />}
           {activePanel === 'patients'&& <PatientsPanel />}
+          {activePanel === 'demo'    && <DemoControlPanel />}
         </div>
       </main>
     </div>
