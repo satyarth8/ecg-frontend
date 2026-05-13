@@ -292,6 +292,7 @@ const PatientsPanel = () => {
   const [msg, setMsg] = useState(null);
   const [submittingRoom, setSubmittingRoom] = useState(false);
   const [submittingDoc, setSubmittingDoc] = useState(false);
+  const [releasingId, setReleasingId] = useState(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -328,6 +329,20 @@ const PatientsPanel = () => {
       setMsg({ type: 'error', text: err.response?.data?.error || 'Failed to assign room.' });
     } finally {
       setSubmittingRoom(false);
+    }
+  };
+
+  const handleReleaseRoom = async (patientId) => {
+    setReleasingId(patientId);
+    setMsg(null);
+    try {
+      await api.post('/api/admin/release-patient', { patient_id: patientId });
+      setMsg({ type: 'success', text: 'Patient released from room. Room is now available.' });
+      fetchData();
+    } catch (err) {
+      setMsg({ type: 'error', text: err.response?.data?.error || 'Failed to release patient.' });
+    } finally {
+      setReleasingId(null);
     }
   };
 
@@ -451,7 +466,7 @@ const PatientsPanel = () => {
         ) : (
           <table className="data-table">
             <thead>
-              <tr><th>Name</th><th>Room</th><th>Assigned Doctors</th></tr>
+              <tr><th>Name</th><th>Room</th><th>Assigned Doctors</th><th>Action</th></tr>
             </thead>
             <tbody>
               {patients.map(p => (
@@ -459,6 +474,21 @@ const PatientsPanel = () => {
                   <td>{p.name}</td>
                   <td>{p.assigned_room ? `Room ${p.assigned_room}` : <span style={{ color: 'var(--text-muted)' }}>—</span>}</td>
                   <td>{(p.assigned_doctors?.length || 0) > 0 ? `${p.assigned_doctors.length} assigned` : <span style={{ color: 'var(--text-muted)' }}>None</span>}</td>
+                  <td>
+                    {p.assigned_room ? (
+                      <button
+                        className="btn-release"
+                        disabled={releasingId === p._id}
+                        onClick={() => handleReleaseRoom(p._id)}
+                        title={`Remove from Room ${p.assigned_room}`}
+                      >
+                        {releasingId === p._id ? <span className="spinner" style={{ width: 12, height: 12, borderWidth: 2 }} /> : '✕'}
+                        {releasingId === p._id ? ' Releasing…' : ' Release Room'}
+                      </button>
+                    ) : (
+                      <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>No room</span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
